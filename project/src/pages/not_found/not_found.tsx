@@ -16,7 +16,6 @@ function NotFoundPage(): JSX.Element {
           </symbol>
         </svg>
       </div>
-
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
