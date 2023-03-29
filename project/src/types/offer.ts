@@ -1,4 +1,6 @@
+import { City } from './city';
 import { User } from './user';
+import { Location } from './location';
 
 export type Offer = {
   id: number;
@@ -19,14 +21,3 @@ export type Offer = {
 }
 
 export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
-
-type City = {
-  location: Location;
-  name: string;
-}
-
-type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}

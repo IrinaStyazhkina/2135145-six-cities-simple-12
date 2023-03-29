@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SendCommentForm() {
+function SendCommentForm() : JSX.Element {
   const [reviewData, setReviewData] = useState<{
     rating: string | null;
     review: string;
