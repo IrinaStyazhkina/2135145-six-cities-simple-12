@@ -1,4 +1,4 @@
-import { City } from "./city";
+import { City } from './city';
 import { User } from './user';
 import { Location } from './location';
 
