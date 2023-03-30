@@ -6,10 +6,10 @@ import { City } from '../../types/city';
 import { Location } from '../../types/location';
 import 'leaflet/dist/leaflet.css';
 
-
 type MapProps = {
   city: City;
   points: Location[];
+  className?: string;
 }
 
 const defaultIcon = new Icon({
@@ -17,7 +17,7 @@ const defaultIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
-function Map({city, points} : MapProps): JSX.Element {
+function Map({city, points, className} : MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -36,7 +36,7 @@ function Map({city, points} : MapProps): JSX.Element {
     }
   }, [map, points]);
 
-  return (<section className="cities__map map" ref={mapRef}></section>);
+  return (<section className={`map ${className || ''}`} ref={mapRef}></section>);
 }
 
 export default Map;
