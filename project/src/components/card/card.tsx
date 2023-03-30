@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Offer, OfferType } from '../../types/offer';
+import { getHotelStarsWidth } from '../../utils/rating';
 
 type CardProps = {
   offer: Offer;
+  classNamePrefix: 'cities' | 'near-places';
 }
 
 function getOfferTypeName(type: OfferType) {
@@ -18,27 +20,9 @@ function getOfferTypeName(type: OfferType) {
   }
 }
 
-function getHotelStarsWidth(rating: number) {
-  const roundedRating = Math.round(rating);
-  switch (roundedRating) {
-    case 0:
-      return '0%';
-    case 1:
-      return '20%';
-    case 2:
-      return '40%';
-    case 3:
-      return '60%';
-    case 4:
-      return '80%';
-    case 5:
-      return '100%';
-  }
-}
-
-function Card({offer}: CardProps): JSX.Element {
+function Card({offer, classNamePrefix}: CardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className={`${classNamePrefix}__card place-card`}>
       {
         offer.isPremium && (
           <div className="place-card__mark">
@@ -46,7 +30,7 @@ function Card({offer}: CardProps): JSX.Element {
           </div>
         )
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classNamePrefix}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
         </Link>
@@ -55,7 +39,7 @@ function Card({offer}: CardProps): JSX.Element {
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;night</span>
+            <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
 
         </div>

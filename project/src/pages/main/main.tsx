@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import OfferList from '../../components/offer-list/offer-list';
+import PlacesList from '../../components/places-list/places-list';
 import { Offer } from '../../types/offer';
 
 type MainPageProps = {
@@ -71,10 +71,10 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <OfferList offers={offers}/>
+                <PlacesList offers={offers} type="cities"/>
               </section>
               <div className="cities__right-section">
-                <Map city={offers[0].city} points={offers.map((offer) => offer.location)}/>
+                <Map city={offers[0].city} points={offers.map((offer) => offer.location)} className="cities__map"/>
               </div>
             </div>
           </div>
