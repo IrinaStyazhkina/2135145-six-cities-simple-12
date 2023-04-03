@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import PlacesList from '../../components/places-list/places-list';
@@ -5,8 +6,19 @@ import ReviewList from '../../components/review-list/review-list';
 import SendCommentForm from '../../components/send-comment-form/send-comment-form';
 import { offers } from '../../mocks/offers';
 import { reviews } from '../../mocks/reviews';
+import { Offer } from '../../types/offer';
 
 function PropertyPage() : JSX.Element {
+
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const onCardHover = (offer: Offer) => {
+    setActiveCard(offer);
+  };
+
+  const onCardUnhover = () => {
+    setActiveCard(null);
+  };
+
   return(
     <div className="page">
       <div style={{display: 'none'}}>
@@ -174,12 +186,12 @@ function PropertyPage() : JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={offers[0].city} points={offers.slice(1).map((offer) => offer.location)} className="property__map"/>
+          <Map city={offers[0].city} points={offers.slice(1)} className="property__map" selectedPoint={activeCard}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList offers={offers.slice(1)} type="near"/>
+            <PlacesList offers={offers.slice(1)} type="near" onCardHover={onCardHover} onCardUnhover={onCardUnhover}/>
           </section>
         </div>
       </main>
