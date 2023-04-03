@@ -2,11 +2,13 @@ import { createReducer } from '@reduxjs/toolkit';
 import { offers } from '../mocks/offers';
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
-import { changeCity, fillOffers } from './action';
+import { SortType } from "../types/sort";
+import { changeCity, fillOffers, setSorting } from './action';
 
 const initialState: {
   city: City;
   offers: Offer[];
+  sortType: SortType;
 } = {
   city: {
     name: 'Paris',
@@ -17,6 +19,7 @@ const initialState: {
     }
   },
   offers: offers,
+  sortType: 'Popular',
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -26,6 +29,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fillOffers, (state, action) => {
       state.offers = action.payload.offers;
+    })
+    .addCase(setSorting, (state, action) => {
+      state.sortType = action.payload.sortType;
     });
 });
 

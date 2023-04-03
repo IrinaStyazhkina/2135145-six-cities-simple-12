@@ -2,10 +2,6 @@ import { Link } from 'react-router-dom';
 import { Offer, OfferType } from '../../types/offer';
 import { getHotelStarsWidth } from '../../utils/rating';
 
-type CardProps = {
-  offer: Offer;
-  classNamePrefix: 'cities' | 'near-places';
-}
 
 function getOfferTypeName(type: OfferType) {
   switch(type) {
@@ -20,9 +16,16 @@ function getOfferTypeName(type: OfferType) {
   }
 }
 
-function Card({offer, classNamePrefix}: CardProps): JSX.Element {
+type CardProps = {
+  offer: Offer;
+  classNamePrefix: 'cities' | 'near-places';
+  onHover: () => void;
+
+  onUnhover: () => void;
+}
+function Card({offer, classNamePrefix, onHover, onUnhover}: CardProps): JSX.Element {
   return (
-    <article className={`${classNamePrefix}__card place-card`}>
+    <article className={`${classNamePrefix}__card place-card`} onMouseOver={onHover} onMouseLeave={onUnhover}>
       {
         offer.isPremium && (
           <div className="place-card__mark">
