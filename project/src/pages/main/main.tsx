@@ -1,13 +1,26 @@
 import Header from '../../components/header/header';
+import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
 import PlacesList from '../../components/places-list/places-list';
-import { Offer } from '../../types/offer';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { changeCity } from '../../store/action';
+import { City } from '../../types/city';
+import { getOffersByCity } from '../../utils/city';
 
 type MainPageProps = {
   cardsCount: number;
-  offers: Offer[];
 }
-function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
+function MainPage({cardsCount}: MainPageProps): JSX.Element {
+
+  const selectedCity = useAppSelector((state) => state.city);
+  const allOffers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
+  const onUserSelectCity = (city: City) => {
+    dispatch(changeCity({city}));
+  };
+  const offersForCity = getOffersByCity(selectedCity.name, allOffers);
+
   return (
     <>
       <Header/>
@@ -16,45 +29,14 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
-              </ul>
+              <LocationsList selectedCity={selectedCity} handleSelectCity={onUserSelectCity}/>
             </section>
           </div>
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">312 places to stay in Amsterdam</b>
+                <b className="places__found">{offersForCity.length} places to stay in {selectedCity.name}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   &nbsp;
@@ -71,10 +53,10 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <PlacesList offers={offers} type="cities"/>
+                <PlacesList offers={offersForCity} type="cities"/>
               </section>
               <div className="cities__right-section">
-                <Map city={offers[0].city} points={offers.map((offer) => offer.location)} className="cities__map"/>
+                <Map city={selectedCity} points={offersForCity.map((offer) => offer.location)} className="cities__map"/>
               </div>
             </div>
           </div>
