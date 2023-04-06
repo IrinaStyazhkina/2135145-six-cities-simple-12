@@ -6,10 +6,7 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { changeCity } from '../../store/action';
 import { City } from '../../types/city';
 
-type MainPageProps = {
-  cardsCount: number;
-}
-function MainPage({cardsCount}: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
 
   const selectedCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
