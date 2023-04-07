@@ -1,6 +1,6 @@
-import { BrowserHistory } from "history";
-import { ReactNode, useLayoutEffect, useState } from "react";
-import { Router } from "react-router-dom";
+import { BrowserHistory } from 'history';
+import { ReactNode, useLayoutEffect, useState } from 'react';
+import { Router } from 'react-router-dom';
 
 export interface HistoryRouterProps {
   history: BrowserHistory;
@@ -19,10 +19,11 @@ function HistoryRouter({history, basename,children}:HistoryRouterProps) : JSX.El
   }, [history]);
 
   return (
-    <Router basename={basename}
-            location={state.location}
-            navigator={history}
-            navigationType={state.action}
+    <Router
+      basename={basename}
+      location={state.location}
+      navigator={history}
+      navigationType={state.action}
     >
       {children}
     </Router>
