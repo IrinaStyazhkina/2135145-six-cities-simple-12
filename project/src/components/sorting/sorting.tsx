@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { useState } from 'react';
 import { Sort } from '../../const/sort';
 import { SortType } from '../../types/sort';
 
@@ -20,18 +21,29 @@ type SortingType = {
 }
 
 function Sorting({currentSort, handleChangeSort}: SortingType): JSX.Element {
+  const [isSelectorCollapsed, setIsSelectorCollapsed] = useState<boolean>(false);
+
+  const onChangeSort = (sort: SortType) => {
+    handleChangeSort(sort);
+    setIsSelectorCollapsed(false);
+  };
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0}>
+      <span className="places__sorting-type" tabIndex={0} onClick={() => {setIsSelectorCollapsed(!isSelectorCollapsed);}}>
         &nbsp;{currentSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
-        {Object.values(Sort).map((sort) => renderSortValue(sort, sort === currentSort, () => {handleChangeSort(sort);}))}
-      </ul>
+      {
+        isSelectorCollapsed && (
+          <ul className="places__options places__options--custom places__options--opened">
+            {Object.values(Sort).map((sort) => renderSortValue(sort, sort === currentSort, () => {onChangeSort(sort);}))}
+          </ul>
+        )
+      }
     </form>
   );
 }

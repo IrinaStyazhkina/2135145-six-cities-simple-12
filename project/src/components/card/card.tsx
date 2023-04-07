@@ -1,20 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Offer, OfferType } from '../../types/offer';
-import { getHotelStarsWidth } from '../../utils/rating';
-
-
-function getOfferTypeName(type: OfferType) {
-  switch(type) {
-    case 'apartment':
-      return 'Apartment';
-    case 'hotel':
-      return 'Hotel';
-    case 'house':
-      return 'House';
-    case 'room':
-      return 'Private room';
-  }
-}
+import { Offer} from '../../types/offer';
+import { getOfferTypeName } from '../../utils/offer';
+import Rating from '../rating/rating';
 
 type CardProps = {
   offer: Offer;
@@ -47,10 +34,7 @@ function Card({offer, classNamePrefix, onHover, onUnhover}: CardProps): JSX.Elem
 
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: getHotelStarsWidth(offer.rating)}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <Rating rating={offer.rating}/>
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>

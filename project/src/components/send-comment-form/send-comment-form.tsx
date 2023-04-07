@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { sendNewComment } from '../../store/api-actions';
+
 
 function SendCommentForm() : JSX.Element {
+  const dispatch = useAppDispatch();
+  const hotelId = useParams();
+
+  const initialFormState = {rating: null, review: ''};
+
   const [reviewData, setReviewData] = useState<{
     rating: string | null;
     review: string;
-  }>({rating: null, review: ''});
+  }>(initialFormState);
 
-  function handleChangeData(evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  const handleChangeData = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setReviewData({...reviewData, [evt.target.name]: evt.target.value});
-  }
+  };
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(sendNewComment({
+      rating: Number(reviewData.rating),
+      comment: reviewData.review,
+      hotelId: Number(hotelId.id),
+    }));
+    setReviewData(initialFormState);
+  };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input
@@ -102,7 +121,7 @@ function SendCommentForm() : JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!reviewData.rating || !(reviewData.review?.length)}>Submit</button>
       </div>
     </form>
   );

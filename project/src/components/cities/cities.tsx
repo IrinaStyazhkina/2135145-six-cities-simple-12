@@ -5,7 +5,7 @@ import { setSorting } from '../../store/action';
 import { City } from '../../types/city';
 import { Offer } from '../../types/offer';
 import { SortType } from '../../types/sort';
-import { getOffersByCity } from '../../utils/city';
+import { getOffersByCity } from '../../utils/offer';
 import { sortOffers } from '../../utils/sort';
 import Map from '../map/map';
 import PlacesList from '../places-list/places-list';

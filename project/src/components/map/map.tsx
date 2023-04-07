@@ -1,4 +1,4 @@
-import { Icon, LatLng, Marker } from 'leaflet';
+import { Icon, Marker } from 'leaflet';
 import { useEffect, useRef } from 'react';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const/const';
 import useMap from '../../hooks/use-map';
@@ -31,7 +31,7 @@ function Map({city, points, selectedPoint, className} : MapProps): JSX.Element {
 
   useEffect(() => {
     if(map) {
-      map.flyTo(new LatLng(city.location.latitude, city.location.longitude), city.location.zoom);
+      map.setView([city.location.latitude, city.location.longitude]);
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
