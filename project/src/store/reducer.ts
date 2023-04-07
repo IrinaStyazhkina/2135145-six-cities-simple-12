@@ -1,15 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { AuthStatus } from '../const/auth-status';
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
 import { SortType } from '../types/sort';
-import { changeCity, loadOffers, setDataLoading, setSorting } from './action';
+import { UserData } from '../types/user-data';
+import { changeCity, loadOffers, setAuthorizationStatus, setDataLoading, setSorting, setUserData } from './action';
 
-const initialState: {
+type initialData = {
   city: City;
   offers: Offer[];
   sortType: SortType;
   isDataLoading: boolean;
-} = {
+  authorizationStatus: AuthStatus;
+  userData: UserData | null;
+  error: string | null;
+}
+
+const initialState: initialData = {
   city: {
     name: 'Paris',
     location: {
@@ -21,6 +28,9 @@ const initialState: {
   offers: [],
   sortType: 'Popular',
   isDataLoading: false,
+  authorizationStatus: AuthStatus.Unknown,
+  userData: null,
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -36,6 +46,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoading, (state, action) => {
       state.isDataLoading = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
     });
 });
 
