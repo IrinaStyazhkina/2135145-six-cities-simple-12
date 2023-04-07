@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthStatus } from '../const/auth-status';
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
-import { Reviews } from "../types/review";
+import { Reviews } from '../types/review';
 import { SortType } from '../types/sort';
 import { UserData } from '../types/user-data';
 import {
