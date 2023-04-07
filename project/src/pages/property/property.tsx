@@ -1,16 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
+import Host from '../../components/host/host';
 import Map from '../../components/map/map';
 import PlacesList from '../../components/places-list/places-list';
+import PropertyFeatures from '../../components/property-features/property-features';
+import PropertyGallery from '../../components/property-gallery/property-gallery';
+import PropertyGoods from '../../components/property-goods/property-goods';
+import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
 import SendCommentForm from '../../components/send-comment-form/send-comment-form';
-import { offers } from '../../mocks/offers';
-import { reviews } from '../../mocks/reviews';
+import { AuthStatus } from '../../const/auth-status';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { setDataLoading } from '../../store/action';
+import { fetchOfferData, } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 
 function PropertyPage() : JSX.Element {
-
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const offersNearBy = useAppSelector((state) => state.offersNearBy);
+  const comments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  useEffect(() => {
+    if(!id){
+      return;
+    }
+    const offerId = Number(id);
+    dispatch(setDataLoading(true));
+    dispatch(fetchOfferData(offerId));
+    dispatch(setDataLoading(false));
+  }, [dispatch, id]);
   const onCardHover = (offer: Offer) => {
     setActiveCard(offer);
   };
@@ -23,133 +47,48 @@ function PropertyPage() : JSX.Element {
     <div className="page">
       <Header/>
       <main className="page__main page__main--property">
-        <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photostudio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photostudio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photostudio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photostudio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photostudio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photostudio"/>
-              </div>
-            </div>
-          </div>
-          <div className="property__container container">
-            <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
-              <div className="property__name-wrapper">
-                <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
-                </h1>
-              </div>
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">4.8</span>
-              </div>
-              <ul className="property__features">
-                <li className="property__feature property__feature--entire">
-                  Apartment
-                </li>
-                <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
-                </li>
-                <li className="property__feature property__feature--adults">
-                  Max 4 adults
-                </li>
-              </ul>
-              <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
-                <span className="property__price-text">&nbsp;night</span>
-              </div>
-              <div className="property__inside">
-                <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
-                </ul>
-              </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+        {currentOffer && (
+          <section className="property">
+            <PropertyGallery images={currentOffer.images}/>
+            <div className="property__container container">
+              <div className="property__wrapper">
+                {currentOffer.isPremium && (
+                  <div className="property__mark">
+                    <span>Premium</span>
                   </div>
-                  <span className="property__user-name">
-                    Angelina
-                  </span>
-                  <span className="property__user-status">
-                    Pro
-                  </span>
+                )}
+                <div className="property__name-wrapper">
+                  <h1 className="property__name">
+                    {currentOffer.title}
+                  </h1>
                 </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                    building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where
-                    the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
+                <div className="property__rating rating">
+                  <Rating rating={currentOffer.rating}/>
+                  <span className="property__rating-value rating__value">{currentOffer.rating}</span>
                 </div>
+                <PropertyFeatures type={currentOffer.type} bedrooms={currentOffer.bedrooms} maxAdults={currentOffer.maxAdults}/>
+                <div className="property__price">
+                  <b className="property__price-value">&euro;{currentOffer.price}</b>
+                  <span className="property__price-text">&nbsp;night</span>
+                </div>
+                <PropertyGoods goods={currentOffer.goods}/>
+                <Host host={currentOffer.host} description={currentOffer.description}/>
+                <section className="property__reviews reviews">
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                  <ReviewList reviews={comments}/>
+                  {authorizationStatus === AuthStatus.Auth && (
+                    <SendCommentForm/>
+                  )}
+                </section>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews[0].length}</span></h2>
-                <ReviewList reviews={reviews[0]}/>
-                <SendCommentForm/>
-              </section>
             </div>
-          </div>
-          <Map city={offers[0].city} points={offers.slice(1)} className="property__map" selectedPoint={activeCard}/>
-        </section>
+            <Map city={currentOffer.city} points={offersNearBy} className="property__map" selectedPoint={activeCard}/>
+          </section>
+        )}
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList offers={offers.slice(1)} type="near" onCardHover={onCardHover} onCardUnhover={onCardUnhover}/>
+            <PlacesList offers={offersNearBy} type="near" onCardHover={onCardHover} onCardUnhover={onCardUnhover}/>
           </section>
         </div>
       </main>
