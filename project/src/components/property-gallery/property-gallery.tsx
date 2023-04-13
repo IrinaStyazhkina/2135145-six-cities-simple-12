@@ -1,3 +1,5 @@
+import React from 'react';
+
 type PropertyGalleryType = {
   images: string[];
 }
@@ -15,4 +17,4 @@ function PropertyGallery({images}: PropertyGalleryType): JSX.Element {
   );
 }
 
-export default PropertyGallery;
+export default React.memo(PropertyGallery);

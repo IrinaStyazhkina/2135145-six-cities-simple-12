@@ -1,3 +1,4 @@
+import React from 'react';
 import { Offer } from '../../types/offer';
 import Card from '../card/card';
 import cn from 'classnames';
@@ -36,4 +37,4 @@ function PlacesList({offers, type, onCardHover, onCardUnhover}: PlacesListProps)
   );
 }
 
-export default PlacesList;
+export default React.memo(PlacesList);

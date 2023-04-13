@@ -3,12 +3,13 @@ import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/app-process/app-process';
+import { getCity } from '../../store/app-process/selectors';
 import { City } from '../../types/city';
 
 function MainPage(): JSX.Element {
 
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
   const onSelectCity = (city: City) => {
     dispatch(changeCity({city}));

@@ -7,7 +7,6 @@ type CardProps = {
   offer: Offer;
   classNamePrefix: 'cities' | 'near-places';
   onHover: () => void;
-
   onUnhover: () => void;
 }
 function Card({offer, classNamePrefix, onHover, onUnhover}: CardProps): JSX.Element {
