@@ -1,6 +1,6 @@
-import { Namespace } from "../../const/namespace";
+import { Namespace } from '../../const/namespace';
 import { City } from '../../types/city';
-import { SortType } from "../../types/sort";
+import { SortType } from '../../types/sort';
 import { State } from '../../types/state';
 
 export const getCity = (state: State): City => state[Namespace.App].city;

@@ -34,7 +34,7 @@ function PropertyPage() : JSX.Element {
 
   useEffect(() => {
     getOfferData(id);
-  }, [getOfferData, id]);
+  }, [getOfferData]);
 
   const onCardHover = useCallback((offer: Offer) => {
     setActiveCard(offer);

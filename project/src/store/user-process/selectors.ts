@@ -1,5 +1,5 @@
-import { AuthStatus } from "../../const/auth-status";
-import { Namespace } from "../../const/namespace";
+import { AuthStatus } from '../../const/auth-status';
+import { Namespace } from '../../const/namespace';
 import { State } from '../../types/state';
 import { UserData } from '../../types/user-data';
 

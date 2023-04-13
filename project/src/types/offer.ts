@@ -24,7 +24,7 @@ export type Offer = {
 export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
 export type OfferData = {
-  currentOffer: Offer,
-  offersNearBy: Offer[],
-  comments: Reviews,
+  currentOffer: Offer;
+  offersNearBy: Offer[];
+  comments: Reviews;
 }

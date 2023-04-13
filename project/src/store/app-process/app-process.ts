@@ -4,7 +4,6 @@ import { City } from '../../types/city';
 import { SortType } from '../../types/sort';
 import { AppProcess } from '../../types/state';
 
-
 const initialState: AppProcess = {
   city: {
     name: 'Paris',
@@ -15,7 +14,7 @@ const initialState: AppProcess = {
     }
   },
   sortType: 'Popular',
-}
+};
 export const appProcess = createSlice({
   name: Namespace.App,
   initialState,

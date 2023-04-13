@@ -24,7 +24,7 @@ function Cities({ selectedCity} : CitiesType): JSX.Element {
   const dispatch = useAppDispatch();
   const onSelectSort = useCallback((sortType: SortType) => {
     dispatch(setSorting({sortType}));
-  }, []);
+  }, [dispatch]);
   const onCardHover = useCallback((offer: Offer) => {
     setActiveCard(offer);
   }, []);
@@ -33,7 +33,7 @@ function Cities({ selectedCity} : CitiesType): JSX.Element {
   }, []);
 
   const offersForCity = useMemo(() => sortOffers(currentSortType, getOffersByCity(selectedCity.name, allOffers)),
-    [currentSortType, selectedCity]);
+    [currentSortType, selectedCity, allOffers]);
   return (
     <div className="cities">
       <div className="cities__places-container container">

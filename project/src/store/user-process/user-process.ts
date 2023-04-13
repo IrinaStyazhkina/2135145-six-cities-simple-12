@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthStatus } from "../../const/auth-status";
-import { Namespace } from "../../const/namespace";
-import { UserProcess } from "../../types/state";
-import { checkAuthAction, loginAction, logoutAction } from "../api-actions";
+import { AuthStatus } from '../../const/auth-status';
+import { Namespace } from '../../const/namespace';
+import { UserProcess } from '../../types/state';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthStatus.Unknown,
   userData: null,
-}
+};
 export const userProcess = createSlice({
   name: Namespace.User,
   initialState,
@@ -31,6 +31,6 @@ export const userProcess = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthStatus.NoAuth;
         state.userData = null;
-      })
+      });
   }
 });
