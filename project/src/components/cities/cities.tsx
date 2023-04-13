@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { setSorting } from '../../store/action';
+import { getOffers } from '../../store/app-data/selectors';
+import { setSorting } from '../../store/app-process/app-process';
+import { getSortType } from '../../store/app-process/selectors';
 import { City } from '../../types/city';
 import { Offer } from '../../types/offer';
 import { SortType } from '../../types/sort';
@@ -15,22 +17,23 @@ type CitiesType = {
   selectedCity: City;
 }
 function Cities({ selectedCity} : CitiesType): JSX.Element {
-  const allOffers = useAppSelector((state) => state.offers);
-  const currentSortType = useAppSelector((state) => state.sortType);
+  const allOffers = useAppSelector(getOffers);
+  const currentSortType = useAppSelector(getSortType);
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
 
   const dispatch = useAppDispatch();
-  const onSelectSort = (sortType: SortType) => {
+  const onSelectSort = useCallback((sortType: SortType) => {
     dispatch(setSorting({sortType}));
-  };
-  const onCardHover = (offer: Offer) => {
+  }, [dispatch]);
+  const onCardHover = useCallback((offer: Offer) => {
     setActiveCard(offer);
-  };
-  const onCardUnhover = () => {
+  }, []);
+  const onCardUnhover = useCallback(() => {
     setActiveCard(null);
-  };
+  }, []);
 
-  const offersForCity = sortOffers(currentSortType, getOffersByCity(selectedCity.name, allOffers));
+  const offersForCity = useMemo(() => sortOffers(currentSortType, getOffersByCity(selectedCity.name, allOffers)),
+    [currentSortType, selectedCity, allOffers]);
   return (
     <div className="cities">
       <div className="cities__places-container container">

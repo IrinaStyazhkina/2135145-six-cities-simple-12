@@ -7,13 +7,15 @@ import LoginPage from '../../pages/login/login';
 import MainPage from '../../pages/main/main';
 import NotFoundPage from '../../pages/not_found/not_found';
 import PropertyPage from '../../pages/property/property';
+import { getDataLoadingStatus } from '../../store/app-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import HistoryRouter from '../history-router/history-router';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoading = useAppSelector(getDataLoadingStatus);
 
   if(authorizationStatus === AuthStatus.Unknown || isDataLoading) {
     return <LoadingScreen/>;
