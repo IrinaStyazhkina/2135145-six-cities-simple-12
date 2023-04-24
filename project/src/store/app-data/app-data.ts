@@ -23,8 +23,6 @@ export const appData = createSlice({
         state.isDataLoading = false;
         state.offers = action.payload;
       })
-      // .addCase(fetchOfferData.pending, (state) => {
-      // })
       .addCase(fetchOfferData.fulfilled, (state, action) => {
         const offerData = action.payload;
         if(offerData) {

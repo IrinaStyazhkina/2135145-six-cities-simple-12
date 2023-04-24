@@ -4,11 +4,12 @@ import { getHotelStarsWidth } from '../../utils/rating';
 
 type ReviewProps = {
   review: Review;
+  testid: string;
 }
 
-function ReviewItem({review} : ReviewProps) : JSX.Element{
+function ReviewItem({review, testid} : ReviewProps) : JSX.Element{
   return (
-    <li className="reviews__item">
+    <li className="reviews__item" data-testid={testid}>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar"/>
@@ -18,7 +19,7 @@ function ReviewItem({review} : ReviewProps) : JSX.Element{
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: getHotelStarsWidth(review.rating)}}></span>
+            <span data-testid='rating' style={{ width: getHotelStarsWidth(review.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

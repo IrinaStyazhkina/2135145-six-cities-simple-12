@@ -30,11 +30,11 @@ function PropertyPage() : JSX.Element {
     }
     const offerId = Number(offId);
     return dispatch(fetchOfferData(offerId));
-  }, [id, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     getOfferData(id);
-  }, [getOfferData]);
+  }, [id, getOfferData]);
 
   const onCardHover = useCallback((offer: Offer) => {
     setActiveCard(offer);

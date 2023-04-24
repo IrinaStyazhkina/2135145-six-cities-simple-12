@@ -12,9 +12,9 @@ function getComponentByPlacesListType(
   type?: PlacesListKindType,) {
   switch(type) {
     case 'cities':
-      return <Card key={offer.id} offer={offer} classNamePrefix='cities' onHover={() => onCardHover(offer)} onUnhover={onCardUnhover}/>;
+      return <Card testid='card_type-cities' key={offer.id} offer={offer} classNamePrefix='cities' onHover={() => onCardHover(offer)} onUnhover={onCardUnhover}/>;
     case 'near':
-      return <Card key={offer.id} offer={offer} classNamePrefix='near-places' onHover={() => onCardHover(offer)} onUnhover={onCardUnhover}/>;
+      return <Card testid='card_type-near' key={offer.id} offer={offer} classNamePrefix='near-places' onHover={() => onCardHover(offer)} onUnhover={onCardUnhover}/>;
   }
 }
 
@@ -28,7 +28,7 @@ type PlacesListProps = {
 function PlacesList({offers, type, onCardHover, onCardUnhover}: PlacesListProps): JSX.Element {
 
   return (
-    <div className = {cn('places__list',
+    <div data-testid={'places__list'} className = {cn('places__list',
       {'near-places__list ': type === 'near'},
       {'cities__places-list tabs__content' : type === 'cities'},)}
     >
