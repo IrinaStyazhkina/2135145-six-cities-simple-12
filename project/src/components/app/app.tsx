@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import browserHistory from '../../browser-history';
 import { AuthStatus } from '../../const/auth-status';
 import { AppRoute } from '../../const/routes';
 import { useAppSelector } from '../../hooks/use-app-selector';
@@ -9,7 +8,6 @@ import NotFoundPage from '../../pages/not_found/not_found';
 import PropertyPage from '../../pages/property/property';
 import { getDataLoadingStatus } from '../../store/app-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import HistoryRouter from '../history-router/history-router';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
@@ -22,14 +20,12 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path={AppRoute.Main} element={<MainPage/>}/>
-        <Route path={AppRoute.Login} element={<LoginPage/>}/>
-        <Route path={AppRoute.Room} element={<PropertyPage/>}/>
-        <Route path={AppRoute.NotFound} element={<NotFoundPage/>}/>
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route path={AppRoute.Main} element={<MainPage/>}/>
+      <Route path={AppRoute.Login} element={<LoginPage/>}/>
+      <Route path={AppRoute.Room} element={<PropertyPage/>}/>
+      <Route path={AppRoute.NotFound} element={<NotFoundPage/>}/>
+    </Routes>
   );
 }
 

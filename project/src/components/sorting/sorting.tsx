@@ -39,7 +39,7 @@ function Sorting({currentSort, handleChangeSort}: SortingType): JSX.Element {
       </span>
       {
         isSelectorCollapsed && (
-          <ul className="places__options places__options--custom places__options--opened">
+          <ul className="places__options places__options--custom places__options--opened" data-testid='places__options'>
             {Object.values(Sort).map((sort) => renderSortValue(sort, sort === currentSort, () => {onChangeSort(sort);}))}
           </ul>
         )

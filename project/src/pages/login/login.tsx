@@ -44,6 +44,7 @@ function LoginPage(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  data-testid="email__input"
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -56,6 +57,7 @@ function LoginPage(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  data-testid="password__input"
                   className="login__input form__input"
                   type="password"
                   name="password"

@@ -4,14 +4,15 @@ import { getOfferTypeName } from '../../utils/offer';
 import Rating from '../rating/rating';
 
 type CardProps = {
+  testid: string;
   offer: Offer;
   classNamePrefix: 'cities' | 'near-places';
   onHover: () => void;
   onUnhover: () => void;
 }
-function Card({offer, classNamePrefix, onHover, onUnhover}: CardProps): JSX.Element {
+function Card({offer, classNamePrefix, onHover, onUnhover, testid}: CardProps): JSX.Element {
   return (
-    <article className={`${classNamePrefix}__card place-card`} onMouseOver={onHover} onMouseLeave={onUnhover}>
+    <article data-testid={testid} className={`${classNamePrefix}__card place-card`} onMouseOver={onHover} onMouseLeave={onUnhover}>
       {
         offer.isPremium && (
           <div className="place-card__mark">

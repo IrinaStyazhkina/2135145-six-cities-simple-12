@@ -56,6 +56,7 @@ export const sendNewComment = createAsyncThunk<Reviews, NewReview, {
     const { data } = await api.post<Reviews>(`${ APIRoute.Comments }/${ hotelId }`, { comment, rating });
     return data;
   });
+
 export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
