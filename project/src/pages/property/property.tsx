@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
@@ -13,12 +13,10 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { fetchOfferData, } from '../../store/api-actions';
 import { getComments, getCurrentOffer, getOffersNearBy } from '../../store/app-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { Offer } from '../../types/offer';
 
 function PropertyPage() : JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const currentOffer = useAppSelector(getCurrentOffer);
   const offersNearBy = useAppSelector(getOffersNearBy);
   const comments = useAppSelector(getComments);
@@ -36,13 +34,6 @@ function PropertyPage() : JSX.Element {
     getOfferData(id);
   }, [id, getOfferData]);
 
-  const onCardHover = useCallback((offer: Offer) => {
-    setActiveCard(offer);
-  }, []);
-
-  const onCardUnhover = useCallback(() => {
-    setActiveCard(null);
-  }, []);
 
   return(
     <div className="page">
@@ -63,13 +54,13 @@ function PropertyPage() : JSX.Element {
                 </section>
               </div>
             </div>
-            <Map city={currentOffer.city} points={offersNearBy} className="property__map" selectedPoint={activeCard}/>
+            <Map city={currentOffer.city} points={[...offersNearBy, currentOffer]} className="property__map" selectedPoint={currentOffer}/>
           </section>
         )}
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList offers={offersNearBy} type="near" onCardHover={onCardHover} onCardUnhover={onCardUnhover}/>
+            <PlacesList offers={offersNearBy} type="near"/>
           </section>
         </div>
       </main>

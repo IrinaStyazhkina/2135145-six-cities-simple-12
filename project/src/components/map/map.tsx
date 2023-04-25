@@ -21,7 +21,7 @@ const currentIcon = new Icon({
 type MapProps = {
   city: City;
   points: Offer[];
-  selectedPoint: Offer | null;
+  selectedPoint?: Offer | null;
   className?: string;
 }
 
@@ -39,7 +39,7 @@ function Map({city, points, selectedPoint, className} : MapProps): JSX.Element {
         });
 
         marker
-          .setIcon(selectedPoint !== null && selectedPoint.id === point.id
+          .setIcon(selectedPoint !== null && selectedPoint?.id === point.id
             ? currentIcon
             : defaultIcon)
           .addTo(map);
