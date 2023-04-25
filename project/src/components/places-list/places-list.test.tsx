@@ -49,7 +49,7 @@ describe('Component: PlacesList', () => {
     expect(screen.queryByTestId('card_type-near')).not.toBeInTheDocument();
   });
 
-  it('should fire onCardHover and onCardUnhover while hovering and unhovering list items',  () => {
+  it('should fire onCardHover and onCardUnhover while hovering and unhovering list items', () => {
     const onCardHover = jest.fn();
     const onCardUnhover = jest.fn();
     const offers = new Array(2).fill(null).map(makeFakeOffer);
