@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { makeFakeOffer } from '../../utils/testData';
 import HistoryRouter from '../history-router/history-router';
@@ -47,5 +48,28 @@ describe('Component: PlacesList', () => {
     expect(screen.getByTestId('places__list')).not.toHaveClass('near-places__list');
     expect(screen.getAllByTestId('card_type-cities')).toHaveLength(2);
     expect(screen.queryByTestId('card_type-near')).not.toBeInTheDocument();
+  });
+
+  it('should fire onCardHover and onCardUnhover while hovering and unhovering list items', async () => {
+    const onCardHover = jest.fn();
+    const onCardUnhover = jest.fn();
+    const offers = new Array(2).fill(null).map(makeFakeOffer);
+    const history = createMemoryHistory();
+
+    render(
+      <HistoryRouter history={history}>
+        <PlacesList
+          offers={offers}
+          type={'cities'}
+          onCardHover={onCardHover}
+          onCardUnhover={onCardUnhover}
+        />
+      </HistoryRouter>
+    );
+
+    await userEvent.hover(screen.getAllByTestId('card_type-cities')[0]);
+    expect(onCardHover).toBeCalledTimes(1);
+    await userEvent.unhover(screen.getAllByTestId('card_type-cities')[0]);
+    expect(onCardUnhover).toBeCalledTimes(1);
   });
 });
