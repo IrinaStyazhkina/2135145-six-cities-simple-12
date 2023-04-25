@@ -23,7 +23,7 @@ describe('Component: LocationsList', () => {
     expect(screen.getAllByTestId('locations__item')).toHaveLength(6);
   });
 
-  it('should fire selectCity event while clicking on location item', async () => {
+  it('should fire selectCity event while clicking on location item',  () => {
     const handleSelectCity = jest.fn();
     const city: City = {
       name: 'Paris',
@@ -37,7 +37,7 @@ describe('Component: LocationsList', () => {
       </HistoryRouter>
     );
 
-    await fireEvent.click(screen.getAllByTestId('locations__item')[1]);
+    fireEvent.click(screen.getAllByTestId('locations__item')[1]);
     expect(handleSelectCity).toBeCalledTimes(1);
   });
 });

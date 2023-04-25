@@ -26,7 +26,7 @@ describe('Component: Card', () => {
     expect(screen.getByText(getOfferTypeName(offer.type))).toBeInTheDocument();
   });
 
-  it('should fire onHover and unHover while hovering and unhovering article element', async () => {
+  it('should fire onHover and unHover while hovering and unhovering article element', () => {
     const history = createMemoryHistory();
     const offer = makeFakeOffer();
     const onHover = jest.fn();
@@ -44,9 +44,9 @@ describe('Component: Card', () => {
       </HistoryRouter>
     );
 
-    await fireEvent.mouseEnter(screen.getByTestId('test'));
+    fireEvent.mouseEnter(screen.getByTestId('test'));
     expect(onHover).toBeCalledTimes(1);
-    await fireEvent.mouseLeave(screen.getByTestId('test'));
+    fireEvent.mouseLeave(screen.getByTestId('test'));
     expect(onUnhover).toBeCalledTimes(1);
   });
 });

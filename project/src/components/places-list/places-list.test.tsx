@@ -49,7 +49,7 @@ describe('Component: PlacesList', () => {
     expect(screen.queryByTestId('card_type-near')).not.toBeInTheDocument();
   });
 
-  it('should fire onCardHover and onCardUnhover while hovering and unhovering list items', async () => {
+  it('should fire onCardHover and onCardUnhover while hovering and unhovering list items',  () => {
     const onCardHover = jest.fn();
     const onCardUnhover = jest.fn();
     const offers = new Array(2).fill(null).map(makeFakeOffer);
@@ -66,9 +66,9 @@ describe('Component: PlacesList', () => {
       </HistoryRouter>
     );
 
-    await fireEvent.mouseEnter(screen.getAllByTestId('card_type-cities')[0]);
+    fireEvent.mouseEnter(screen.getAllByTestId('card_type-cities')[0]);
     expect(onCardHover).toBeCalledTimes(1);
-    await fireEvent.mouseLeave(screen.getAllByTestId('card_type-cities')[0]);
+    fireEvent.mouseLeave(screen.getAllByTestId('card_type-cities')[0]);
     expect(onCardUnhover).toBeCalledTimes(1);
   });
 });
