@@ -47,7 +47,7 @@ function Map({city, points, selectedPoint, className} : MapProps): JSX.Element {
     }
   }, [map, city, points, selectedPoint]);
 
-  return (<section className={`map ${className || ''}`} ref={mapRef}></section>);
+  return (<section data-testid='map' className={`map ${className || ''}`} ref={mapRef}></section>);
 }
 
 export default Map;

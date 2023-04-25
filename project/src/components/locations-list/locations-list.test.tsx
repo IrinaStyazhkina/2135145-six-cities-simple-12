@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { City } from '../../types/city';
 import { getRandomLocation } from '../../utils/testData';
@@ -21,5 +22,23 @@ describe('Component: LocationsList', () => {
     );
 
     expect(screen.getAllByTestId('locations__item')).toHaveLength(6);
+  });
+
+  it('should fire selectCity event while clicking on location item', async () => {
+    const handleSelectCity = jest.fn();
+    const city: City = {
+      name: 'Paris',
+      location: getRandomLocation(),
+    };
+
+    const history = createMemoryHistory();
+    render(
+      <HistoryRouter history={history}>
+        <LocationsList selectedCity={city} handleSelectCity={handleSelectCity}/>
+      </HistoryRouter>
+    );
+
+    await userEvent.click(screen.getAllByTestId('locations__item')[1]);
+    expect(handleSelectCity).toBeCalledTimes(1);
   });
 });

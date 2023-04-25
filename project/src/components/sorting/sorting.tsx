@@ -31,7 +31,7 @@ function Sorting({currentSort, handleChangeSort}: SortingType): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => {setIsSelectorCollapsed(!isSelectorCollapsed);}}>
+      <span data-testid='sorting__control' className="places__sorting-type" tabIndex={0} onClick={() => {setIsSelectorCollapsed(!isSelectorCollapsed);}}>
         &nbsp;{currentSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
