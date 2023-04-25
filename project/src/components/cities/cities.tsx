@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setSorting } from '../../store/app-process/app-process';
 import { City } from '../../types/city';
 import { Offer } from '../../types/offer';

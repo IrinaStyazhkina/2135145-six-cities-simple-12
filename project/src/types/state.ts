@@ -17,6 +17,7 @@ export type AppData = {
   offersNearBy: Offer[];
   comments: Reviews;
   isDataLoading: boolean;
+  isCommentSending: boolean;
 };
 
 export type AppProcess = {

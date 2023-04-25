@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthStatus } from '../../const/auth-status';
 import { AppRoute } from '../../const/routes';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import LoginPage from '../../pages/login/login';
 import MainPage from '../../pages/main/main';
 import NotFoundPage from '../../pages/not_found/not_found';

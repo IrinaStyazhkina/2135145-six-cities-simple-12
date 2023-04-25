@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AuthStatus } from '../../const/auth-status';
 import { AppRoute } from '../../const/routes';
-import { useAppDispatch } from '../../hooks/use-app-dispatch';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { logoutAction } from '../../store/api-actions';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 

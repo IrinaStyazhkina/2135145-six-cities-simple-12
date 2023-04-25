@@ -9,6 +9,7 @@ const initialState: AppData = {
   offersNearBy: [],
   comments: [],
   isDataLoading: false,
+  isCommentSending: false,
 };
 
 describe('Reducer: appData', () => {
@@ -26,6 +27,7 @@ describe('Reducer: appData', () => {
         offersNearBy: [],
         comments: mockComment,
         isDataLoading: false,
+        isCommentSending: false,
       });
   });
 
@@ -37,6 +39,7 @@ describe('Reducer: appData', () => {
         offersNearBy: [],
         comments: [],
         isDataLoading: true,
+        isCommentSending: false,
       });
   });
 
@@ -49,6 +52,7 @@ describe('Reducer: appData', () => {
         offersNearBy: [],
         comments: [],
         isDataLoading: false,
+        isCommentSending: false,
       });
   });
 
@@ -64,6 +68,7 @@ describe('Reducer: appData', () => {
         offersNearBy: offersNearBy,
         comments: comments,
         isDataLoading: false,
+        isCommentSending: false,
       });
   });
 });
