@@ -8,3 +8,5 @@ export const getCurrentOffer = (state: State): Offer | null => state[Namespace.D
 export const getOffersNearBy = (state: State): Offer[] => state[Namespace.Data].offersNearBy;
 export const getComments = (state: State): Reviews => state[Namespace.Data].comments;
 export const getDataLoadingStatus = (state: State): boolean => state[Namespace.Data].isDataLoading;
+export const getIsCommentSending = (state: State): boolean => state[Namespace.Data].isCommentSending;
+

@@ -9,6 +9,7 @@ const initialState: AppData = {
   offersNearBy: [],
   comments: [],
   isDataLoading: false,
+  isCommentSending: false,
 };
 export const appData = createSlice({
   name: Namespace.Data,
@@ -31,7 +32,11 @@ export const appData = createSlice({
           state.comments = offerData.comments;
         }
       })
+      .addCase(sendNewComment.pending, (state) => {
+        state.isCommentSending = true;
+      })
       .addCase(sendNewComment.fulfilled, (state, action) => {
+        state.isCommentSending = false;
         state.comments = action.payload;
       });
   }

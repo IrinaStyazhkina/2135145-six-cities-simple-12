@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { City } from '../types/city';
-import useMap from './use-map';
+import useMap from './useMap';
 
 describe('Hook: useMap', () => {
   it('should return map instance', () => {

@@ -21,13 +21,9 @@ function Card({offer, classNamePrefix, onHover, onUnhover, testid}: CardProps): 
         )
       }
       <div className={`${classNamePrefix}__image-wrapper place-card__image-wrapper`}>
-        {classNamePrefix === 'cities' ? (
-          <Link to={`/offer/${offer.id}`}>
-            <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
-          </Link>
-        ) : (
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
-        )}
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

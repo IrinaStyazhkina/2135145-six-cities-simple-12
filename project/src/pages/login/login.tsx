@@ -2,8 +2,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthStatus } from '../../const/auth-status';
 import { AppRoute } from '../../const/routes';
-import { useAppDispatch } from '../../hooks/use-app-dispatch';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { redirectToRoute } from '../../store/action';
 import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -28,9 +28,20 @@ function LoginPage(): JSX.Element {
     setAuthData({...authData, [evt.target.name]: evt.target.value});
   };
 
+  const isFormValid = (): boolean => {
+    if(authData.password?.length < 2
+      || authData.password.search(/\d/) === -1
+      || authData.password.search(/[a-zA-Z]/) === -1){
+      return false;
+    }
+    return true;
+  };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(loginAction(authData));
+    if(isFormValid()) {
+      dispatch(loginAction(authData));
+    }
   };
 
   return (
