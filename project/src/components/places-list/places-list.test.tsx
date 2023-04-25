@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { makeFakeOffer } from '../../utils/testData';
 import HistoryRouter from '../history-router/history-router';
@@ -67,9 +66,9 @@ describe('Component: PlacesList', () => {
       </HistoryRouter>
     );
 
-    await userEvent.hover(screen.getAllByTestId('card_type-cities')[0]);
+    await fireEvent.mouseEnter(screen.getAllByTestId('card_type-cities')[0]);
     expect(onCardHover).toBeCalledTimes(1);
-    await userEvent.unhover(screen.getAllByTestId('card_type-cities')[0]);
+    await fireEvent.mouseLeave(screen.getAllByTestId('card_type-cities')[0]);
     expect(onCardUnhover).toBeCalledTimes(1);
   });
 });

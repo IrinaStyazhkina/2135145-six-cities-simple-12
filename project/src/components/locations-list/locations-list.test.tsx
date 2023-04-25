@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { City } from '../../types/city';
 import { getRandomLocation } from '../../utils/testData';
@@ -38,7 +37,7 @@ describe('Component: LocationsList', () => {
       </HistoryRouter>
     );
 
-    await userEvent.click(screen.getAllByTestId('locations__item')[1]);
+    await fireEvent.click(screen.getAllByTestId('locations__item')[1]);
     expect(handleSelectCity).toBeCalledTimes(1);
   });
 });

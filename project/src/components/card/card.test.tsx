@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { getOfferTypeName } from '../../utils/offer';
 import { makeFakeOffer } from '../../utils/testData';
@@ -45,9 +44,9 @@ describe('Component: Card', () => {
       </HistoryRouter>
     );
 
-    await userEvent.hover(screen.getByTestId('test'));
+    await fireEvent.mouseEnter(screen.getByTestId('test'));
     expect(onHover).toBeCalledTimes(1);
-    await userEvent.unhover(screen.getByTestId('test'));
+    await fireEvent.mouseLeave(screen.getByTestId('test'));
     expect(onUnhover).toBeCalledTimes(1);
   });
 });
