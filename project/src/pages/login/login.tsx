@@ -1,17 +1,28 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthStatus } from '../../const/auth-status';
 import { AppRoute } from '../../const/routes';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { redirectToRoute } from '../../store/action';
 import { loginAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthData } from '../../types/auth-data';
 
 function LoginPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const [authData, setAuthData] = useState<AuthData>({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if(authorizationStatus === AuthStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.Main));
+    }
+  }, [authorizationStatus, dispatch]);
 
   const handleChangeInputValue = (evt: ChangeEvent<HTMLInputElement>) => {
     setAuthData({...authData, [evt.target.name]: evt.target.value});

@@ -7,8 +7,8 @@ type CardProps = {
   testid: string;
   offer: Offer;
   classNamePrefix: 'cities' | 'near-places';
-  onHover: () => void;
-  onUnhover: () => void;
+  onHover?: () => void;
+  onUnhover?: () => void;
 }
 function Card({offer, classNamePrefix, onHover, onUnhover, testid}: CardProps): JSX.Element {
   return (
@@ -21,9 +21,13 @@ function Card({offer, classNamePrefix, onHover, onUnhover, testid}: CardProps): 
         )
       }
       <div className={`${classNamePrefix}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        {classNamePrefix === 'cities' ? (
+          <Link to={`/offer/${offer.id}`}>
+            <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
+          </Link>
+        ) : (
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
-        </Link>
+        )}
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
